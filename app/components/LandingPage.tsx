@@ -37,8 +37,8 @@ const LandingPage = () => {
         ease: 'elastic.out(1, 0.75)',
       });
 
-    // Typing animation for "What's your take?"
-    const takeText = "What's your take?";
+    // Typing animation for "Interested in sharing your taKe?"
+    const takeText = "Interested in sharing your taKe";
     let takeIndex = 0;
     const typeTake = () => {
       if (takeIndex < takeText.length) {
