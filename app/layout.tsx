@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Pixelify_Sans, Delius_Swash_Caps } from 'next/font/google';
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const pixelifySans = Pixelify_Sans({ subsets: ['latin'], variable: '--font-pixelify-sans' });
+const deliusSwashCaps = Delius_Swash_Caps({ subsets: ['latin'], weight: '400', variable: '--font-delius-swash-caps' });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,9 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${pixelifySans.variable} ${deliusSwashCaps.variable}`}>
         {children}
       </body>
     </html>
