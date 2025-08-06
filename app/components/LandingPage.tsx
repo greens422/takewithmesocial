@@ -38,7 +38,7 @@ const LandingPage = () => {
       });
 
     // Typing animation for "Interested in sharing your taKe?"
-    const takeText = "Interested in sharing your taKe";
+    const takeText = "Interested in sharing your taKe?";
     let takeIndex = 0;
     const typeTake = () => {
       if (takeIndex < takeText.length) {
@@ -51,12 +51,12 @@ const LandingPage = () => {
     };
     setTimeout(typeTake, 6000);
 
-    // Animation for "We can't wait to hear it"
-    gsap.fromTo(
-      questionRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1.5, delay: 8.5, ease: 'power4.out' }
-    );
+    #// Animation for "We can't wait to hear it"
+    #gsap.fromTo(
+    #  questionRef.current,
+    #  { opacity: 0, y: 30 },
+    #  { opacity: 1, y: 0, duration: 1.5, delay: 8.5, ease: 'power4.out' }
+    # );
 
     // Animation for "Sign up for our waitlist"
     gsap.fromTo(
