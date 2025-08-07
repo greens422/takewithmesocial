@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { motion } from 'framer-motion';
 import { theme } from '../theme/theme';
+import Particles from 'react-tsparticles';
 
 const LandingPage = () => {
   const tRef = useRef(null);
@@ -17,7 +18,20 @@ const LandingPage = () => {
   useEffect(() => {
     const tl = gsap.timeline();
 
-    // Animation for "t."
+    // Mouse-following animation for "t."
+    const handleMouseMove = (e: MouseEvent) => {
+      gsap.to(tRef.current, {
+        x: (e.clientX - window.innerWidth / 2) / 20, // Reduced sensitivity
+        y: (e.clientY - window.innerHeight / 2) / 20, // Reduced sensitivity
+        rotation: -5 + (e.clientX - window.innerWidth / 2) / 50, // Subtle rotation
+        ease: 'power2.out',
+        duration: 0.8,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // Initial animation for "t."
     tl.fromTo(
       tRef.current,
       { scale: 0, opacity: 0, rotation: -45 },
@@ -71,6 +85,10 @@ const LandingPage = () => {
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 1.5, delay: 12, ease: 'power4.out' }
     );
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
@@ -98,7 +116,7 @@ const LandingPage = () => {
       />
       
       {/* Realistic grain texture */}
-      <div 
+      <motion.div 
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
@@ -106,6 +124,7 @@ const LandingPage = () => {
           `,
           mixBlendMode: 'multiply'
         }}
+        whileHover={{ scale: 1.1, transition: { duration: 0.5 } }}
       />
 
       {/* Additional fine grain */}
@@ -132,6 +151,75 @@ const LandingPage = () => {
         }}
       />
       
+      {/* Particle system */}
+      <Particles
+        id="tsparticles"
+        options={{
+          background: {
+            color: {
+              value: 'transparent',
+            },
+          },
+          fpsLimit: 60,
+          interactivity: {
+            events: {
+              onHover: {
+                enable: true,
+                mode: 'repulse',
+              },
+              resize: true,
+            },
+            modes: {
+              repulse: {
+                distance: 100,
+                duration: 0.4,
+              },
+            },
+          },
+          particles: {
+            color: {
+              value: '#ffffff',
+            },
+            links: {
+              color: '#ffffff',
+              distance: 150,
+              enable: true,
+              opacity: 0.2,
+              width: 1,
+            },
+            collisions: {
+              enable: true,
+            },
+            move: {
+              direction: 'none',
+              enable: true,
+              outMode: 'bounce',
+              random: false,
+              speed: 1,
+              straight: false,
+            },
+            number: {
+              density: {
+                enable: true,
+                area: 800,
+              },
+              value: 50,
+            },
+            opacity: {
+              value: 0.2,
+            },
+            shape: {
+              type: 'circle',
+            },
+            size: {
+              random: true,
+              value: 3,
+            },
+          },
+          detectRetina: true,
+        }}
+      />
+
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8">
         <div
@@ -142,17 +230,33 @@ const LandingPage = () => {
           t.
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-          <div
+          <motion.div
             ref={takeRef}
             className="font-primary text-7xl text-black text-center"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
-          />
+            whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+          >
+            <motion.span
+              initial={{ y: 0, opacity: 1 }}
+              whileHover={{ y: -10, opacity: 0.8, transition: { duration: 0.3 } }}
+            >
+            </motion.span>
+          </motion.div>
           <div
             ref={questionRef}
             className="font-secondary text-5xl mt-6 text-black"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
           >
-            We can't wait to hear it
+            {"We can't wait to hear it".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 10 + index * 0.05, duration: 0.5, ease: 'easeInOut' }}
+              >
+                {char}
+              </motion.span>
+            ))}
           </div>
         </div>
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center w-full px-8">
@@ -164,14 +268,22 @@ const LandingPage = () => {
             Sign up for our waitlist
           </div>
           <div ref={formRef} className="flex flex-col items-center w-full max-w-md">
-            <input
+            <motion.input
               type="email"
               placeholder="Enter your email"
               className="w-full bg-white bg-opacity-25 border-2 border-black border-opacity-40 rounded-xl px-6 py-3 text-black placeholder-black placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-black transition-all duration-300 ease-in-out shadow-lg"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 12, duration: 1, ease: 'easeInOut' }}
             />
-            <button className="mt-6 w-full bg-white text-black rounded-xl px-8 py-3 font-bold text-lg hover:bg-opacity-90 transition-colors duration-300 ease-in-out shadow-xl transform hover:scale-105">
+            <motion.button 
+              className="mt-6 w-full bg-white text-black rounded-xl px-8 py-3 font-bold text-lg hover:bg-opacity-90 transition-colors duration-300 ease-in-out shadow-xl transform hover:scale-105"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 12, duration: 1, ease: 'easeInOut' }}
+            >
               Sign Up
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
