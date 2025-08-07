@@ -46,30 +46,30 @@ const LandingPage = () => {
           (takeRef.current as HTMLElement).textContent += takeText.charAt(takeIndex);
         }
         takeIndex++;
-        setTimeout(typeTake, 200);
+        setTimeout(typeTake, 150); // Faster typing
       }
     };
-    setTimeout(typeTake, 6000);
+    setTimeout(typeTake, 5000); // Start typing a bit earlier
 
-    #// Animation for "We can't wait to hear it"
-    #gsap.fromTo(
-    #  questionRef.current,
-    #  { opacity: 0, y: 30 },
-    #  { opacity: 1, y: 0, duration: 1.5, delay: 8.5, ease: 'power4.out' }
-    # );
+    // Animation for "We can't wait to hear it"
+    gsap.fromTo(
+      questionRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1.5, delay: 10, ease: 'power4.out' }
+    );
 
     // Animation for "Sign up for our waitlist"
     gsap.fromTo(
       waitlistRef.current,
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1.5, delay: 10, ease: 'power4.out' }
+      { opacity: 1, y: 0, duration: 1.5, delay: 11, ease: 'power4.out' }
     );
 
     // Animation for the form
     gsap.fromTo(
       formRef.current,
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1.5, delay: 11, ease: 'power4.out' }
+      { opacity: 1, y: 0, duration: 1.5, delay: 12, ease: 'power4.out' }
     );
   }, []);
 
@@ -144,7 +144,7 @@ const LandingPage = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
           <div
             ref={takeRef}
-            className="font-primary text-7xl text-black"
+            className="font-primary text-7xl text-black text-center"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
           />
           <div
