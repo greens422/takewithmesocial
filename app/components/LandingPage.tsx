@@ -65,7 +65,7 @@ const LandingPage = () => {
     };
     setTimeout(typeTake, 5000); // Start typing a bit earlier
 
-    // Animation for "We can't wait to hear it"
+    // Animation for " "
     gsap.fromTo(
       questionRef.current,
       { opacity: 0, y: 30 },
@@ -247,7 +247,7 @@ const LandingPage = () => {
             className="font-secondary text-5xl mt-6 text-black"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
           >
-            {"We can't wait to hear it".split("").map((char, index) => (
+            {" ".split("").map((char, index) => (
               <motion.span
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
