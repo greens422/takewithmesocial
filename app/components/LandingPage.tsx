@@ -278,10 +278,16 @@ const LandingPage = () => {
                 const baseUrl =
                   process.env.NEXT_PUBLIC_SITE_URL ??
                   (typeof window !== 'undefined' ? window.location.origin : '');
+                const currentPath =
+                  typeof window !== 'undefined'
+                    ? window.location.pathname + window.location.search + window.location.hash
+                    : '/';
                 await supabase.auth.signInWithOAuth({
                   provider: "google",
                   options: {
-                    redirectTo: `${baseUrl}/auth/callback?next=/welcome`,
+                    // Redirect back to the site root; our global handler will exchange the code
+                    // and, if `next` matches the current location, it will stay on the same page.
+                    redirectTo: `${baseUrl}/?next=${encodeURIComponent(currentPath || '/')}`,
                     queryParams: { access_type: "offline", prompt: "consent" },
                   },
                 });

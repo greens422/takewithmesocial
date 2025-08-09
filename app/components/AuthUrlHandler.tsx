@@ -19,7 +19,21 @@ export default function AuthUrlHandler() {
         url.searchParams.delete("code");
         url.searchParams.delete("state");
         window.history.replaceState({}, "", url.pathname + url.search);
-        window.location.replace(next);
+        // If next points to the current location, do not navigate (avoid visible refresh)
+        try {
+          const nextUrl = new URL(next, window.location.origin);
+          const current = window.location;
+          const same =
+            nextUrl.origin === current.origin &&
+            nextUrl.pathname + nextUrl.search + nextUrl.hash ===
+              current.pathname + current.search + current.hash;
+          if (!same) {
+            window.location.replace(next);
+          }
+        } catch {
+          // Fallback navigate if parsing fails
+          window.location.replace(next);
+        }
       }
     })();
   }, []);
