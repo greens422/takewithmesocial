@@ -25,7 +25,7 @@ export default function WelcomePage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen w-full relative overflow-hidden p-8">
+    <div className="min-h-dvh w-full relative overflow-hidden p-4 sm:p-6 md:p-8">
       {/* Main gradient background (same style as LandingPage) */}
       <motion.div
         className="absolute inset-0"
@@ -43,7 +43,7 @@ export default function WelcomePage() {
 
       {/* Realistic grain texture */}
       <motion.div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 hidden sm:block"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           mixBlendMode: "multiply",
@@ -53,7 +53,7 @@ export default function WelcomePage() {
 
       {/* Additional fine grain */}
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-20 hidden sm:block"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='1' result='noise' seed='2'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter2)' opacity='0.4'/%3E%3C/svg%3E")`,
           mixBlendMode: "overlay",
@@ -62,7 +62,7 @@ export default function WelcomePage() {
 
       {/* Subtle paper texture */}
       <div
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-10 hidden sm:block"
         style={{
           backgroundImage: `radial-gradient(circle at 20% 80%, rgba(0,0,0,0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0,0,0,0.03) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%)`,
           backgroundSize: "100px 100px, 150px 150px, 80px 80px",
@@ -70,9 +70,10 @@ export default function WelcomePage() {
       />
 
       {/* Particle system */}
-      <Particles
-        id="tsparticles-welcome"
-        options={{
+      <div className="hidden sm:block">
+        <Particles
+          id="tsparticles-welcome"
+          options={{
           background: { color: { value: "transparent" } },
           fpsLimit: 60,
           interactivity: {
@@ -90,18 +91,19 @@ export default function WelcomePage() {
             size: { random: true, value: 3 },
           },
           detectRetina: true,
-        }}
-      />
+          }}
+        />
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center">
-        <div className="mx-6 max-w-2xl w-full bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 text-center border-2 border-black/30">
-          <div className="flex justify-center mb-6">
-            <Image src="/logo.svg" alt="tAke logo" width={80} height={80} />
+      <div className="relative z-10 min-h-dvh flex items-center justify-center">
+        <div className="mx-4 sm:mx-6 max-w-xl sm:max-w-2xl w-full bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 text-center border-2 border-black/30">
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <Image src="/logo.svg" alt="tAke logo" width={64} height={64} className="sm:w-[80px] sm:h-[80px]" />
           </div>
-          <h1 className="font-primary text-6xl text-black mb-4">We can’t wait to meet you</h1>
-          <p className="font-primary text-2xl text-black/80 mb-8">Thanks for signing in. Your journey with tAke starts soon.</p>
-          <p className="font-primary text-xl text-black">— The tAke Team</p>
+          <h1 className="font-primary text-3xl sm:text-5xl md:text-6xl text-black mb-3 sm:mb-4">We can’t wait to meet you</h1>
+          <p className="font-primary text-lg sm:text-xl md:text-2xl text-black/80 mb-6 sm:mb-8">Thanks for signing in. Your journey with tAke starts soon.</p>
+          <p className="font-primary text-base sm:text-lg md:text-xl text-black">— The tAke Team</p>
         </div>
       </div>
     </div>

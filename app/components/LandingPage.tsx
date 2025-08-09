@@ -95,7 +95,7 @@ const LandingPage = () => {
   return (
     <div 
       ref={containerRef}
-      className="min-h-screen w-full relative overflow-hidden p-8"
+      className="min-h-dvh w-full relative overflow-hidden p-4 sm:p-6 md:p-8"
     >
       {/* Main gradient background */}
       <motion.div
@@ -118,7 +118,7 @@ const LandingPage = () => {
       
       {/* Realistic grain texture */}
       <motion.div 
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 hidden sm:block"
         style={{
           backgroundImage: `
             url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
@@ -130,7 +130,7 @@ const LandingPage = () => {
 
       {/* Additional fine grain */}
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-20 hidden sm:block"
         style={{
           backgroundImage: `
             url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='1' result='noise' seed='2'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter2)' opacity='0.4'/%3E%3C/svg%3E")
@@ -141,7 +141,7 @@ const LandingPage = () => {
 
       {/* Subtle paper texture */}
       <div 
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-10 hidden sm:block"
         style={{
           backgroundImage: `
             radial-gradient(circle at 20% 80%, rgba(0,0,0,0.05) 0%, transparent 50%),
@@ -153,9 +153,10 @@ const LandingPage = () => {
       />
       
       {/* Particle system */}
-      <Particles
-        id="tsparticles"
-        options={{
+      <div className="hidden sm:block">
+        <Particles
+          id="tsparticles"
+          options={{
           background: {
             color: {
               value: 'transparent',
@@ -218,14 +219,15 @@ const LandingPage = () => {
             },
           },
           detectRetina: true,
-        }}
-      />
+          }}
+        />
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-dvh px-4 sm:px-6 md:px-8">
         <div
           ref={tRef}
-          className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-9xl font-bold"
+          className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-6xl sm:text-8xl md:text-9xl font-bold"
           style={{ color: 'transparent' }}
         >
           t.
@@ -233,7 +235,7 @@ const LandingPage = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
           <motion.div
             ref={takeRef}
-            className="font-primary text-7xl text-black text-center"
+            className="font-primary text-3xl sm:text-5xl md:text-7xl text-black text-center"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
           >
@@ -245,7 +247,7 @@ const LandingPage = () => {
           </motion.div>
           <div
             ref={questionRef}
-            className="font-secondary text-5xl mt-6 text-black"
+            className="font-secondary text-2xl sm:text-3xl md:text-5xl mt-6 text-black text-center"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
           >
             {" ".split("").map((char, index) => (
@@ -260,17 +262,17 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center w-full px-8">
+        <div className="absolute bottom-8 sm:bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center w-full px-4 sm:px-6 md:px-8">
           <div
             ref={waitlistRef}
-            className="font-pixel text-4xl mb-6 text-black"
+            className="font-pixel text-2xl sm:text-3xl md:text-4xl mb-6 text-black text-center"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
           >
             Sign up for our waitlist
           </div>
           <div ref={formRef} className="flex flex-col items-center w-full max-w-md">
             <motion.button 
-              className="w-full bg-white text-black rounded-xl px-8 py-3 font-bold text-lg hover:bg-opacity-90 transition-colors duration-300 ease-in-out shadow-xl transform hover:scale-105 flex items-center justify-center gap-3"
+              className="w-full bg-white text-black rounded-xl px-6 sm:px-8 py-3 font-bold text-base sm:text-lg hover:bg-opacity-90 transition-colors duration-300 ease-in-out shadow-xl transform hover:scale-105 flex items-center justify-center gap-3"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 12, duration: 1, ease: 'easeInOut' }}
