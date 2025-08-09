@@ -1,3 +1,24 @@
+## Environment
+
+Set your public site URL (used for OAuth redirect) in `.env.local` and in Vercel Environment Variables:
+
+```
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+For production (Vercel → Project → Settings → Environment Variables):
+
+```
+NEXT_PUBLIC_SITE_URL=https://takewithmesocial.vercel.app
+```
+
+Also set:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

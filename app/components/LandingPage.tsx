@@ -275,10 +275,13 @@ const LandingPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 12, duration: 1, ease: 'easeInOut' }}
               onClick={async () => {
+                const baseUrl =
+                  process.env.NEXT_PUBLIC_SITE_URL ??
+                  (typeof window !== 'undefined' ? window.location.origin : '');
                 await supabase.auth.signInWithOAuth({
                   provider: "google",
                   options: {
-                    redirectTo: `${window.location.origin}/auth/callback?next=/welcome`,
+                    redirectTo: `${baseUrl}/auth/callback?next=/welcome`,
                     queryParams: { access_type: "offline", prompt: "consent" },
                   },
                 });
