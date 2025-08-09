@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Pixelify_Sans, Delius_Swash_Caps } from 'next/font/google';
 import "./globals.css";
+import AuthUrlHandler from "./components/AuthUrlHandler";
 
 const pixelifySans = Pixelify_Sans({ subsets: ['latin'], variable: '--font-pixelify-sans' });
 const deliusSwashCaps = Delius_Swash_Caps({ subsets: ['latin'], weight: '400', variable: '--font-delius-swash-caps' });
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pixelifySans.variable} ${deliusSwashCaps.variable}`}>
+        <AuthUrlHandler />
         {children}
       </body>
     </html>
