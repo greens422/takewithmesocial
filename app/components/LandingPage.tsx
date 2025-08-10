@@ -276,7 +276,7 @@ const LandingPage = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 12, duration: 1, ease: 'easeInOut' }}
-              onClick={async () => {
+               onClick={async () => {
                 const baseUrl =
                   process.env.NEXT_PUBLIC_SITE_URL ??
                   (typeof window !== 'undefined' ? window.location.origin : '');
@@ -284,12 +284,12 @@ const LandingPage = () => {
                   typeof window !== 'undefined'
                     ? window.location.pathname + window.location.search + window.location.hash
                     : '/';
+                const nextPath = currentPath && currentPath !== '/' ? currentPath : '/welcome';
                 await supabase.auth.signInWithOAuth({
                   provider: "google",
                   options: {
-                    // Redirect back to the site root; our global handler will exchange the code
-                    // and, if `next` matches the current location, it will stay on the same page.
-                    redirectTo: `${baseUrl}/?next=${encodeURIComponent(currentPath || '/')}`,
+                    // Use the explicit auth callback route so exchanges happen off the landing page
+                    redirectTo: `${baseUrl}/auth/callback?next=${encodeURIComponent(nextPath)}`,
                     queryParams: { access_type: "offline", prompt: "consent" },
                   },
                 });
